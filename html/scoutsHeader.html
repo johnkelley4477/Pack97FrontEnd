@@ -1,13 +1,70 @@
 <header>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<style>
+		.weblink_list{
+		    text-align: left;
+		    margin-left: auto;
+		    margin-right: auto;
+		    width: 375px;
+		    font-size: 15px;
+		}
+		td.sectiontableheader, .componentheading {
+		    display: none;
+		}
+		.contentdescription {
+		    font-size: 24px;
+		    font-weight: bold;
+		    margin:5px;
+		}
+		.contentdescription p {
+		    margin: 15px;
+		}
+		tr.sectiontableentry1 td:first-child {
+		    display: none;
+		}
+		tr.sectiontableentry1 td {
+		    width: 100%;
+		}
+		tr.sectiontableentry2 td {
+		    width: 100%;
+		}
+		tr.sectiontableentry2 td:first-child {
+		    display: none;
+		}
+		tr.sectiontableentry1 {
+		    background-color: white;
+		    padding: 5px;
+		}
+
+		.doc_width{
+		     text-align: left;
+		    max-width: 600px;
+		    margin: auto;
+		    font-size: 1.3em;
+		}
+		.mt20 {
+		    margin-top: 20px;
+		    width: 95%;
+		    margin-left: auto;
+		    margin-right: auto;
+		}
+		.slick-next:before {
+		    color: black;
+		}
+		.slick-prev:before {
+		    color: black;
+		}
+		.banner_conntainer h2.contentheading {
+		    text-align: center;
+		    font-weight: bold;
+		}
 		.article_column{
 		    	width:100%;
 		 }
 		.banner_conntainer{
 			width: 100%;
-			overflow:hidden;
+			/* overflow:hidden; */
 		}
 		.banner_text{
 			background-color:rgba(255,255,255,0.90);
@@ -122,16 +179,16 @@
     		width:200px;
                 margin-top:20px;
     		text-align: center;
+    		display:none;
 		    font-family: sans-serif;
 		}
 
 		i.item84{
 			position: absolute;
-		    top: 35px;
+		    top: 60px;
     		font-size: 30px;
     		width:75px;
     		text-align: center;
-    		display:none;
 		}
 
 		.grid33{
@@ -186,17 +243,22 @@
 		}
 		.logo{
 			height:150px;
-			margin-left:7%;
+			margin-left:9%;
 			float:left;
 		}
 		.text_container {
 		    float: left;
-		    margin-left: 12%;
+		    margin-left: 10%;
+background-color: rgba(0,34,104,0.5);
+    box-shadow: 0px 0px 20px 10px rgba(0,34,104,0.5);
 		}
                @media only screen and (max-width: 945px) {
                      .footer_grid33{
 			width:100%;
                       }
+                      .m_top50{
+                          margin-top:50px;
+                    }
                 }
 		@media only screen and (max-width: 760px) {
 			h1 {
@@ -207,14 +269,22 @@
 			}
 			.imgHeader, .logo, header{
 				height:100px;
+
 			}
-			p.item84{
-				width:100px;
-				top:50px;
-			}
+                        i.item84{
+		              top: 35px;
+                        }
 			.main_menu{
 				top:100px;
 			}
+.mt20{
+
+width:90%;
+
+}
+.text_container{
+    height: 90px;
+}
 		}
 		@media only screen and (max-width: 570px) {
 			.logo{
@@ -226,12 +296,15 @@
 			p.item84{
 				display:none;
 			}
+.text_container{
+    float: right;
+}
 		}
 	</style>
  	<div class="imgHeader">
  		<i class="item84 fa fa-bars"></i>
  		<p class="item84">Menu</p>
- 		<img src="../images/patches.png" class="logo">
+ 		<img src="/images/patches.png" class="logo">
  		<div class="text_container">
 	        <h1>Cub Scout Pack 97</h1>
 	        <h2>of Mecklenberg County, NC <br>at ST.Marks Catholic Church</h2>
