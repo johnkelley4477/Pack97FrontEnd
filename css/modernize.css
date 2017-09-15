@@ -31,7 +31,7 @@ tr.sectiontableentry2 td:first-child {
     display: none;
 }
 tr.sectiontableentry1 {
-    background-color: white;
+    background-color: #ddd;
     padding: 5px;
 }
 
@@ -68,7 +68,10 @@ tr.sectiontableentry1 {
  }
 .banner_conntainer{
 	width: 100%;
-	/* overflow:hidden; */
+}
+span.icon_menu {
+    font-size: 14px;
+    display: block;
 }
 .banner_text{
 	background-color:rgba(255,255,255,0.90);
@@ -76,6 +79,7 @@ tr.sectiontableentry1 {
 	float: left; 
 	padding: 10px 10px 10px 20px; 
 	margin-left: 20%;
+	margin-right: 20%;
     display:table;
 	box-shadow: 0px 0px 50px 20px #FFFFFF;
 }
@@ -83,7 +87,8 @@ tr.sectiontableentry1 {
 	font-size: larger;
 }
 .banner_image,.banner_conntainer,.banner_text{
-	min-height: 200px;
+	min-height: 300px;
+	height:300px;
 }
 
 table,tbody,tr,td{
@@ -91,7 +96,6 @@ table,tbody,tr,td{
 }
 body{
 	margin:0px;
-	background-color:#eee;
 }
 header{
 	background:#002266;
@@ -288,8 +292,19 @@ p.font_larger {
 	.text_container{
 		height: 90px;
 	}
+	.banner_text{
+		margin-left: 10%;
+		margin-right: 10%;
+	}
+	.banner_image,.banner_conntainer,.banner_text{
+		min-height: 400px;
+		height: 400px;
+	}
 }
 @media only screen and (max-width: 570px) {
+	h1 {
+	    font-size: 30px;
+	}
 	.logo{
 		display:none;
 	}
