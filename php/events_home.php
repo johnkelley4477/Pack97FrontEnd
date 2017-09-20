@@ -21,7 +21,7 @@ include("scoutsHeader.php");
 	
 	// For this page, we just want a simple list of active events.
 	// Later we will add links to allow the user to view a list of registered users/familes.
-	$result = mysql_query("SELECT ID,EventName,Description,EventDate,Enabled FROM Events WHERE Visible=1");
+	$result = mysql_query("SELECT ID,EventName,Description,EventDate,Enabled FROM Events WHERE Visible=1 AND DATE(NOW()) <= DATE(EventDate)");
 	if (!$result)
 	{
 		echo '<h2>No active events.</h2>';

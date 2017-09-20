@@ -15,9 +15,9 @@ $(".item84").bind('click',() => {
 		mainMenu.css('left',"-300px"); //Hide the menu
 	}
 });
-$(".item84").bind('mouseenter',() => {
-	mainMenu.css('left',"0px"); //Show the menu
-});
+// $(".item84").bind('mouseenter',() => {
+// 	mainMenu.css('left',"0px"); //Show the menu
+// });
 //Bind menu items
 //bind home menu buttons
 $("#mm .item1").bind('touchstart click',() => {window.location = 'http://www.cubscoutpack97.org/'});
