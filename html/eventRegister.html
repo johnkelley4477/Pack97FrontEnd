@@ -1,0 +1,227 @@
+<style>
+	.bar{
+		background-color: #026;
+		width:100%;
+		height:40px;
+		margin-top: 10px;
+	}
+	.showhidebutton{
+		border:none;
+		float:right;
+		background-color: #026;
+		color: #fff;
+		padding:5px;
+		margin-right: 15px;
+		margin-top: 0px;
+		font-size: 24px;
+	}
+	.add_new{
+	    font-size: 24px;
+	    background: #026;
+	    color: #ff0;
+	    border: none;
+	    border-radius: 30px;
+	    height: 35px;
+	    width: 40px;
+	    padding-bottom: 33px;
+	    margin-top: 4px;
+	    margin-left: 15px;
+	}
+	.bar_header{
+		background-color: #026;
+		color: #fff;
+		padding:5px;
+		float:left;
+		margin: 5px;
+	}
+	.contact_text, .scout_text, .adult_text, .child_text{
+		background-color: #026;
+		color: #CAE1FF;
+	    font-size: 14px;
+	    margin-left: 5px;
+	}
+	.contact_container{
+		max-width: 640px;
+		margin: auto auto;
+	}
+	input{
+	    font-size: 14px;
+	    padding: 3px;
+	    margin-top: 10px;
+	}
+	.scout_container, .leader_container, .adult_container, .child_container{
+		display: none;
+		max-width: 480px;
+		margin: auto auto;
+	}
+	.{
+		display: none;
+	}
+	select{
+		font-size: 14px;
+		margin-top: 10px;
+		border: 1px solid #ddd;
+		height: 28px;
+		background-color: #fff;
+	}
+</style>
+
+<form>
+	<div class='bar'>
+		<h3 class="bar_header">Adult's Contact Info<span class='contact_text'></span></h3>
+		<input class='contact showhidebutton' type='button' onclick='showhidecontacts(".contact_container",".contact.showhidebutton")' value='-'/>
+	</div>
+	<div class='contact_container'>
+		<input class='contact_item' type='text' name='contact_first_name0' placeholder='First Name'/>
+		<input class='contact_item' type='text' name='contact_last_name0' placeholder='Last Name'/>
+		<input class='contact_item' type='email' name='contact_email0' placeholder='Email'/>
+		<input class='contact_item phone' type='phone' name='contact_phone0' placeholder='Phone Number'/>	
+	</div>
+
+	<div class='bar '>
+		<h3 class="bar_header">Scout's Info<span class='scout_text'></span></h3>
+		<input class='scout showhidebutton' type='button' onclick='showhidecontacts(".scout_container",".scout.showhidebutton")' value='+'/>
+	</div>
+	<div class='scout_container'>
+		<input class='scout_item' type='text' name='scout_first_name0' placeholder='First Name'/>
+		<input class='scout_item' type='text' name='scout_last_name0' placeholder='Last Name'/>
+		<select class='scout_item'>
+		</select>	
+		<input type="button" class="add_new scout_add" onclick="addNewScout()" value="+"/>
+	</div>
+	<div class='bar '>
+		<h3 class="bar_header">Leader's Info<span class='leader_text'></span></h3>
+		<input class='leader showhidebutton' type='button' onclick='showhidecontacts(".leader_container",".leader.showhidebutton")' value='+'/>
+	</div>
+	<div class='leader_container'>
+		<input class='leader_item' type='text' name='leader_first_name0' placeholder='First Name'/>
+		<input class='leader_item' type='text' name='leader_last_name0' placeholder='Last Name'/>
+		<select class='leader_item'>
+			<option>Male</option>
+			<option>Female</option>
+		</select>
+		<input type="button" class="add_new leader_add" onclick="addNewPerson('leader','.leader_add')" value="+"/>	
+	</div>
+
+	<div class='bar '>
+		<h3 class="bar_header">Adult's Info<span class='adult_text'></span></h3>
+		<input class='adult showhidebutton' type='button' onclick='showhidecontacts(".adult_container",".adult.showhidebutton")' value='+'/>
+	</div>
+	<div class='adult_container'>
+		<input class='adult_item' type='text' name='adult_first_name0' placeholder='First Name'/>
+		<input class='adult_item' type='text' name='adult_last_name0' placeholder='Last Name'/>
+		<select class='adult_item'>
+			<option>Male</option>
+			<option>Female</option>
+		</select>	
+		<input type="button" class="add_new adult_add" onclick="addNewPerson('adult','.adult_add')" value="+"/>
+	</div>
+
+	<div class='bar '>
+		<h3 class="bar_header">Child's Info<span class='child_text'></span></h3>
+		<input class='child showhidebutton' type='button' onclick='showhidecontacts(".child_container",".child.showhidebutton")' value='+'/>
+	</div>
+	<div class='child_container'>
+		<input class='child_item' type='text' name='child_first_name0' placeholder='First Name'/>
+		<input class='child_item' type='text' name='child_last_name0' placeholder='Last Name'/>
+		<select class='child_item'>
+			<option>Male</option>
+			<option>Female</option>
+		</select>	
+		<input type="button" class="add_new child_add" onclick="addNewPerson('child','.child_add')" value="+"/>
+	</div>
+
+</form>
+<footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	<script type='text/javascript'>
+		const dens = [ //ToDo generate from DB call
+			{"den":"Den 3"},
+			{"den":"Den 4"},
+			{"den":"Den 5"},
+			{"den":"Den 6"},
+			{"den":"Den 7"},
+			{"den":"Den 8"},
+			{"den":"Den 9"}
+		],
+		newScoutTempl = "<hr><div class='scout_container'> "+
+				"<input class='scout_item' type='text' name='scout_first_name0' placeholder='First Name'/> "+
+				"<input class='scout_item' type='text' name='scout_last_name0' placeholder='Last Name'/> "+
+				"<select class='scout_item' name=scout_den0> "+
+				"</select>"+
+				"<input type='button' class='add_new scout_add' onclick='addNewScout()' value='+'/>"+
+			"</div>",
+		newPersonTempl = "<hr><div class='~_container'>"+
+				"<input class='~_item' type='text' name='~_first_name0' placeholder='First Name'/> "+
+				"<input class='~_item' type='text' name='~_last_name0' placeholder='Last Name'/> "+
+				"<select class='~_item' name='~_gen0'> "+
+					"<option>Male</option> "+
+					"<option>Female</option> "+
+				"</select> "+
+				"<input type='button' class='add_new ~_add' onclick='addNewPerson(\"~\",\".~_add\")' value='+'/>"+
+			"</div>";
+		
+		function addNewPerson(personType,button) {
+			$(button).remove();
+			let person = newPersonTempl.replace(/~/g,personType);
+			let containerCount = $("." + personType + "_container").length;
+			$('.' + personType + '_container').last().after(person.replace(/0/g,containerCount));
+			$('.' + personType + '_container').hide().fadeIn('fast');
+		}
+		function addNewScout() {
+			$('.scout_add').remove();
+			$('.scout_container').last().after(newScoutTempl.replace(/0/g,$(".scout_container").length));
+			$.each(dens, function(idx, den) {
+				$('select.scout_item').append("<option>" + den.den + "</option>");
+			});
+			$('.scout_container').hide().fadeIn('fast');
+		}
+		function showhidecontacts(container,button) {
+			if ($(container + ':visible').length > 0){
+				$(container).hide();
+				$(button).val('+');
+				contactsText();
+			}else{
+				$(container).show();
+				$(button).val('-');
+			}
+		}
+		function contactsText() {
+			let first = $('input.contact_item[name="contact_first_name0"]').val(),
+				last = $('input.contact_item[name="contact_last_name0"]').val();
+			if(first !== "" && last !== ""){
+				$('.contact_text').html(first + " " + last);
+			}else{
+				$('.contact_text').html("");
+			}
+		}
+		function validateEmail(value){
+			var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{1,3})+$/;
+  			return regex.test(value);
+		}
+		function validatePhone(value){
+			if(value.length >= 9 && value.length <= 16){
+				return true;
+			}
+			return false;
+		}
+		$('.contact_item').bind('keypress', () => {
+			let first = $('.contact_item')[0].value !== "",
+				last = $('.contact_item')[1].value !== "",
+				email = validateEmail($('.contact_item')[2].value),
+				phone = validatePhone($('.contact_item')[3].value);
+				console.log(first && last && (email || phone));
+			if(first && last && (email || phone)){
+				$('.scout_container').show();
+			}else{
+				$('.scout_container').hide();
+			}
+		});
+		$.each(dens, (idx, den) => {
+			$('select.scout_item').append("<option>" + den.den + "</option>");
+		});
+		//$(":input").inputmask();
+		//$(".phone").inputmask({"mask": "(999) 999-9999"});
+	</script>
+</footer>

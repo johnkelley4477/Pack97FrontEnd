@@ -1,7 +1,6 @@
 <?php
 require("admin_ini.php");
 require("db_ini.php");
-require("host_ini.php");
 
 // Keep track of the current page so that we can redirect the user here if they choose to log out.
 $redirect = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
