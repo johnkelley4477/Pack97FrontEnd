@@ -23,9 +23,11 @@ require("header.php");
 	.hike_detail_info{
 		font-size:20px;
 		margin-bottom: 10px;
+		color:#555;
 	}
 	.hike_detail_info label{
-		color:#555;
+		color:#000;
+		font-weight: bold;
 	}
 	.hike_levels {
 	    color: #026;
@@ -156,6 +158,9 @@ require("header.php");
 	}
 	.jsCopy{
 		display: none;
+	}
+	.grid50.hike_detail_blocks{
+		width:95%;
 	}
 }
 
