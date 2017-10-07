@@ -23,9 +23,11 @@ require("header.php");
 	.hike_detail_info{
 		font-size:20px;
 		margin-bottom: 10px;
+		color:#555;
 	}
 	.hike_detail_info label{
-		color:#555;
+		color:#000;
+		font-weight: bold;
 	}
 	.hike_levels {
 	    color: #026;
@@ -111,6 +113,12 @@ require("header.php");
 	.hiker_stats {
 	    margin-bottom: 10px;
 	}
+	.teens{
+	    background-image: url(/images/hiking10mile.png);
+	}
+	.twenty{
+	    background-image: url(/images/hiking20mile.png);
+	}
 	.thirty{
 	    background-image: url(/images/hiking30mile.png);
 	}
@@ -156,6 +164,9 @@ require("header.php");
 	}
 	.jsCopy{
 		display: none;
+	}
+	.grid50.hike_detail_blocks{
+		width:95%;
 	}
 }
 
@@ -219,8 +230,8 @@ require("header.php");
 	$teens = true;
 	$ones = true;
 	function buildScout($scout_id, $first_name, $last_name, $den, $total_miles){
-		echo '<div class="hiker_text" align="center"><div class="hiker"><button id="' . $scout_id . '" onclick="showHiker(' . $scout_id . ')">' .  $first_name . ' ' . $last_name . '.</a></div>';
-		echo '<div class="hiker_stats"> '.$total_miles.' miles <a onclick="showDen(\'' . $den . '\',\'' . $scout_id . '\')">' . $den . '</a></div></div><div class="hikers_details " id="hikes' . $scout_id . '" style="display:none;"></div>';
+		echo '<div class="hiker_text" align="center"><div class="hiker"><button id="' . $scout_id . '" onclick=\'getData(' . $scout_id . ',"#hikes' . $scout_id . '","#hikes' . $scout_id . '","hikerSQL.php","scoutId")\'>' .  $first_name . ' ' . $last_name . '.</a></div>';
+		echo '<div class="hiker_stats"> '.$total_miles.' miles <a onclick=\'getData("' . $den . '","#hikes' . $scout_id . '","#hikes' . $scout_id . '","denSQL.php","denName")\'>' . $den . '</a></div></div><div class="hikers_details " id="hikes' . $scout_id . '" style="display:none;"></div>';
 	}
 	$con = mysql_connect($hostname,$db_username,$db_password);
 	if (!$con)
@@ -340,44 +351,69 @@ require("header.php");
 
 <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
 <script>
-//--------------------Modal Code-------------------
-// Get the modal
-const modal = $('#hikeModal'),
-	span = $(".close")[0];
+/*
+* The following bind actions to items specific to this page.
+*/
 
-// When the user clicks on the button, open the modal 
+/* When the user clicks on the Hike Name, a modal will fire displaying that 
+*  hike's details
+*/ 
 $(".hike_local a").bind('click',() => {
     $('#hikeModal').show();
 });
 
 // When the user clicks on <span> (x), close the modal
-$(span).bind('click',() => {
+$(".close").bind('click',() => {
     $('#hikeModal').hide();
 });
 
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = (event) => {
-    if (event.target == $(modal)) {
-        $('#hikeModal').hide();
-    }
-}
+//When the user clicks on the 'less...' span the copy will be truncated
 $('.jsCopyHide').bind('click',() => {
 	$('.jsCopy').hide()
 	$('.jsCopyHide').hide();
 	$('.jsCopyShow').show();
 });
+
+//When the user clicks on the 'more...' span the copy will be displayed
 $('.jsCopyShow').bind('click',() => {
 	$('.jsCopy').show()
 	$('.jsCopyHide').show();
 	$('.jsCopyShow').hide();
 });
 
-function hideModal(){
-	$('#hikeModal').hide();
-}
-function showHikeDetails(hikeId) {
-    if (hikeId == "") {
-        $('#hikeModal').hide();
+/* When the user clicks on the scout's name in the modal. The modal will be closed
+*  and the page will jump to the scout's name.
+*/
+$('.hikerScout a').bind('click', () => {
+	$('#hikehideModalModal').hide();
+});
+
+// $('button, .hiker_stats a').bind('click',(e)=>{
+// 	const scoutId = e.target.id;
+// 	if($('#hikes' + scoutId).is(":visible")){
+// 		$('#hikes' + scoutId).hide();
+// 	}else{
+// 		$('#hikes' + scoutId).show();
+// 	}
+// });
+
+/*
+* The getData function will call a defined page and inject that page in the 
+* targetd localtion
+*
+* Params
+* @dataId (number) This is the key field for the SQL call
+* @hideTarget (string) This is the element to show or hide when this is called
+* @dataTarget (string) This is the element that will display the template page.
+* @page (string) The template page
+* @param (string) the name of the param to be used.
+*
+*/
+
+function getData(dataId,hideTarget,dataTarget,page,param) {
+
+    if (dataId == "") {
+        $(hideTarget).hide();
         return;
     } else { 
         if (window.XMLHttpRequest) {
@@ -389,60 +425,15 @@ function showHikeDetails(hikeId) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
-                $("#hike_details_modal").html(this.responseText);
-                $("#hikeModal").show();
+                $(dataTarget).html(this.responseText);
+                $(hideTarget).show();
             }
         };
-        xmlhttp.open("GET","hikeDetailSQL.php?hikeId=" + hikeId,true);
-        xmlhttp.send();
-    }
-}
-
-
-
-
-//------------------------Done-------------------
-function showHiker(scoutId) {
-    if ($('.jsHike').length > 0 && (scoutId == "" || $('#hikes' + scoutId).is(":visible"))) {
-        $('#hikes' + scoutId).hide();
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        let p = "";
+        if(param.length > 0){
+        	p = "?" + param + "=" + dataId;
         }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                $("#hikes" + scoutId).html(this.responseText);
-                $("#hikes" + scoutId).show();
-            }
-        };
-        xmlhttp.open("GET","hikerSQL.php?scoutId=" + scoutId,true);
-        xmlhttp.send();
-    }
-}
-function showDen(denName, scoutId) {
-    if ($('.jsDen').length > 0 && (denName == "" || $('#hikes' + scoutId).is(":visible"))) {
-        $('#hikes' + scoutId).hide();
-        return;
-    } else { 
-        if (window.XMLHttpRequest) {
-            // code for IE7+, Firefox, Chrome, Opera, Safari
-            xmlhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                $("#hikes" + scoutId).html(this.responseText);
-                $("#hikes" + scoutId).show();
-            }
-        };
-        xmlhttp.open("GET","denSQL.php?denName=" + denName,true);
+        xmlhttp.open("GET",page + p,true);
         xmlhttp.send();
     }
 }
