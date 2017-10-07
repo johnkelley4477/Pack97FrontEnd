@@ -39,8 +39,7 @@ while($row = mysql_fetch_array($result))
     $miles= $row[MILES];
     
     $total_miles+=$miles;
-    
-    echo '<div class="hike_local"><a onclick="showHikeDetails(' . $hike_id . ')">' . $hike_name . '</a></div>';
+    echo '<div class="hike_local"><a onclick=\'getData(' . $hike_id . ',"#hikeModal","#hike_details_modal","hikeDetailSQL.php","hikeId")\'>' . $hike_name . '</a></div>';
     echo '<div class="hike_info"><span class="hike_miles">A ' . $miles . ' mile </span>';
     echo '<span class="hike_type">' . $hike_type . ' hike on </span>';
     echo '<span class="hike_date">' . date("m-d-Y", strtotime($hike_date)) . '</span></div>';

@@ -71,7 +71,7 @@ echo '</div>';
         $last_name= substr($rowh[SCOUT_LAST_NAME],0,1);
         $den= $rowh[DEN];
         
-        echo '<div class="hikerScout"><a href="#' . $scout_id . '" onclick="hideModal()">' . $first_name . ' ' . $last_name . '</a>. <span>' . $den . '</span></div>';
+        echo '<div class="hikerScout"><a href="#' . $scout_id . '">' . $first_name . ' ' . $last_name . '</a>. <span>' . $den . '</span></div>';
     }
     echo '</div>'; 
     mysql_close($con);

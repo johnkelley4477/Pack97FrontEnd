@@ -63,7 +63,45 @@ if (window.location.search.search('com_contact&view=contact') > 0){
 	$(mainTableArray[2]).hide();
 	$(mainTableArray[3]).hide();
 }
+function addCarousel() {
+//Create a carousel that rotates a new panel ever 5secs\
+  $('.carousel').slick({
+    dots:true,
+    arrows:false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 5000,
+  });
+}
+function getData(dataId,hideTarget,dataTarget,page,param) {
 
+    if (dataId == "") {
+        $(hideTarget).hide();
+        return;
+    } else { 
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                $(dataTarget).html(this.responseText);
+                $(hideTarget).show();
+            }
+        };
+        let p = "";
+        if(param.length > 0){
+        	p = "?" + param + "=" + dataId;
+        }
+        xmlhttp.open("GET",page + p,true);
+      //  xmlhttp.addEventListener("loadend", addCarousel());;
+        xmlhttp.send();
+    }
+}
 
 
 
