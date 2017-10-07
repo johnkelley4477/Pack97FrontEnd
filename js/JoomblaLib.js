@@ -1,13 +1,19 @@
 /*
 *	This library will add the functionality needed for the Joombla pages
 */
+
+getData('test','#dynamicEventBanners','#dynamicEventBanners','/events/eventsBanners.php',"");
+
+
 //Create a carousel that rotates a new panel ever 5secs
-$('.carosel').slick({
-  slidesToShow: 1,
-  slidesToScroll: 1,
-  autoplay: true,
-  autoplaySpeed: 5000,
-});
+// $('.carosel').slick({
+//   dots:true,
+//   arrows:false,
+//   slidesToShow: 1,
+//   slidesToScroll: 1,
+//   autoplay: true,
+//   autoplaySpeed: 5000,
+// });
 
 //Fix the styling on the resources page. ToDo: Remove this when we can really make the changes needed.
 if($("img[src='/images/stories/']").length >  0){
