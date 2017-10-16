@@ -19,6 +19,7 @@ if (!$con)
 }
 
 mysql_select_db($db_name, $con);
+echo '<span onclick="closeHikersDetail()" class="close_view" >X</span>';
 echo '<div class="detail_title jsDen">Den</div>';
 $result = mysql_query("SELECT tbl_SCOUT.SCOUT_ID, tbl_SCOUT.SCOUT_FIRST_NAME, tbl_SCOUT.SCOUT_LAST_NAME, tbl_SCOUT.DEN, Sum( tbl_HIKE.MILES ) AS TOTAL_MILES
                 FROM tbl_SCOUT

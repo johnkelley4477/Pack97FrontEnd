@@ -1,9 +1,30 @@
 <?php
-require("header.php");
+	require("header.php");
 ?>
 <style>
 	hr{
 		width:400px;
+	}
+	body{
+		font-family: sans-serif;
+	}
+	div#search {
+	    width: 300px;
+	    margin: 30px auto 10px auto;
+	}
+	span.close_view {
+	    font-size: 20px;
+	    color: #fff;
+	    float: right;
+	    padding-right: 20px;
+	    width: 20px;
+		cursor: pointer;
+	}
+	#search #scout_search {
+	   font-size: 16px;
+	}
+	#search label{
+		font-weight: bold;
 	}
 	.hike_details_card{
 		background: #002266;
@@ -33,7 +54,11 @@ require("header.php");
 	    color: #026;
 	    text-align: center;
 	    font-size: 30px;
-	    background-color: rgba(255, 255, 255, 0.75);
+	    box-shadow: 0px 0px 50px 30px rgba(255, 255, 255, 0.9);
+	    background-color: rgba(255, 255, 255, 0.9);
+	    width: 300px;
+	    margin-left:auto;
+	    margin-right:auto;
 	}
 	.hiker button {
 	    border: none;
@@ -73,6 +98,7 @@ require("header.php");
 	    color: #ff0;
 	    font-size: 24px;
 	    margin-bottom: 10px;
+	    margin-left: 20px;
 	}
 	.hikers_details{
 		background-color: rgba(0, 34, 102, 0.9);
@@ -80,6 +106,7 @@ require("header.php");
 	    padding-top: 20px;
 	    padding-bottom: 20px;
 	    box-shadow: inset 0px 10px 10px #000, inset 0px -10px 10px #000;
+        margin-bottom: 40px;
 	}
 	.hike_local a {
 	    text-decoration: underline;
@@ -92,19 +119,25 @@ require("header.php");
 	    color: #ddd;
 	}
 	.hiker_text{
-		background-color: rgba(255,255,255,0.75);
 		padding: 2px;
+    	box-shadow: 0px 0px 50px 30px rgba(255, 255, 255, 0.9);
+	    background-color: rgba(255, 255, 255, 0.9);
+	    width: 300px;	    
+		margin-left: auto;
+		margin-right: auto;
 	}
 	.range{
 		min-height: 225px;
 	    background-repeat: no-repeat;
 	    background-position-y: center;
-		background-position-x: center;
+		background-position-x: 25%;
 	    width: 100%;
     	display: table;
 	}
 	.hikers {
-    	display: table-row;
+	    padding: 2px;
+	    margin-left: auto;
+	    margin-right: auto;
 	}
 	.hiker {
 	    font-size: 24px;
@@ -158,6 +191,17 @@ require("header.php");
 .jsCopy{
 	display: inline;
 }
+@media only screen and (max-width: 900px) {
+	.range{
+		background-size: 50px;
+		background-position-y: 40px;
+		background-position-x: 25%;
+	}
+	.hike_levels, .hiker_text{
+	    box-shadow: none;
+		background-color: initial;
+	}
+}
 @media only screen and (max-width: 570px) {
 	.jsCopyShow{
 		display: inline;
@@ -167,6 +211,9 @@ require("header.php");
 	}
 	.grid50.hike_detail_blocks{
 		width:95%;
+	}
+	.range{
+	    background-position-x: 20%;
 	}
 }
 
@@ -199,6 +246,7 @@ require("header.php");
     margin-right: 20px;
     font-size: 28px;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover,
@@ -233,6 +281,17 @@ require("header.php");
 		echo '<div class="hiker_text" align="center"><div class="hiker"><button id="' . $scout_id . '" onclick=\'getData(' . $scout_id . ',"#hikes' . $scout_id . '","#hikes' . $scout_id . '","hikerSQL.php","scoutId")\'>' .  $first_name . ' ' . $last_name . '.</a></div>';
 		echo '<div class="hiker_stats"> '.$total_miles.' miles <a onclick=\'getData("' . $den . '","#hikes' . $scout_id . '","#hikes' . $scout_id . '","denSQL.php","denName")\'>' . $den . '</a></div></div><div class="hikers_details " id="hikes' . $scout_id . '" style="display:none;"></div>';
 	}
+	function getLastInitial($lastName){
+		$last = "";
+		if(substr($lastName,0,2) == "Mc"){
+			$last = substr($lastName,0,3);
+		}else if(substr($lastName,0,3) == "Mac"){
+			$last = substr($lastName,0,4);
+		}else{
+			$last = substr($lastName,0,1);
+		}
+		return $last;
+	}
 	$con = mysql_connect($hostname,$db_username,$db_password);
 	if (!$con)
 	{
@@ -240,89 +299,105 @@ require("header.php");
 	}
 	
 	mysql_select_db($db_name, $con);
-	
-	$result = mysql_query("SELECT tbl_SCOUT.SCOUT_ID, tbl_SCOUT.SCOUT_FIRST_NAME, tbl_SCOUT.SCOUT_LAST_NAME, tbl_SCOUT.DEN, Sum( tbl_HIKE.MILES ) AS TOTAL_MILES
+	$sql_scout_hikes = "SELECT tbl_SCOUT.SCOUT_ID, tbl_SCOUT.SCOUT_FIRST_NAME, tbl_SCOUT.SCOUT_LAST_NAME, tbl_SCOUT.DEN, Sum( tbl_HIKE.MILES ) AS TOTAL_MILES
 					FROM tbl_SCOUT
 					LEFT JOIN tbl_SCOUT_HIKE ON tbl_SCOUT.SCOUT_ID = tbl_SCOUT_HIKE.SCOUT_ID
 					LEFT JOIN tbl_HIKE ON tbl_SCOUT_HIKE.HIKE_ID = tbl_HIKE.HIKE_ID
 					WHERE tbl_SCOUT.NON_ACTIVE_SCOUT = 0 
 					GROUP BY tbl_SCOUT.SCOUT_FIRST_NAME, tbl_SCOUT.SCOUT_LAST_NAME
-					ORDER BY TOTAL_MILES DESC, tbl_SCOUT.DEN");
-			
-	while($row = mysql_fetch_array($result))
-	{
+					ORDER BY TOTAL_MILES DESC, tbl_SCOUT.DEN";
+	$sql_scouts = "SELECT SCOUT_ID, SCOUT_FIRST_NAME, SCOUT_LAST_NAME
+					FROM tbl_SCOUT
+					WHERE NON_ACTIVE_SCOUT = 0
+					GROUP BY SCOUT_FIRST_NAME, SCOUT_LAST_NAME
+					ORDER BY SCOUT_LAST_NAME, SCOUT_FIRST_NAME";
+	
+	$result_search = mysql_query($sql_scouts);
+
+	echo "<div id='search'><label>Find your scout: </label><select id='scout_search' onchange ='jumpToScout()'>" ;
+	while($row = mysql_fetch_array($result_search)){
 		$scout_id = $row[SCOUT_ID];
 		$first_name = $row[SCOUT_FIRST_NAME];
-		$last_name = substr($row[SCOUT_LAST_NAME],0,1);
+		$last_name = getLastInitial($row[SCOUT_LAST_NAME]);
+		echo "<option value='" . $scout_id . "'>" . $last_name . ", " . $first_name . "</option>";
+	}
+	echo "</select></div>";
+
+	$result = mysql_query($sql_scout_hikes);
+			
+	while($row = mysql_fetch_array($result)){
+		$scout_id = $row[SCOUT_ID];
+		$first_name = $row[SCOUT_FIRST_NAME];
 		$den = $row[DEN];
 		$total_miles = $row[TOTAL_MILES];
-
+		$last_name = getLastInitial($row[SCOUT_LAST_NAME]);
+		
 		if ($total_miles == ''){
 			$total_miles = 0;
 		}
 		if($total_miles >= 100){
 			if($hundred === true){	
-				echo '<div class="hundred range"> <hr><h3 class="hike_levels">100 Milers Club</h3><div class="hikers">';
+				echo '<div class="hundred range"> <hr><div class="hikers"><h3 class="hike_levels">100 Milers Club</h3>';
 				$hundred = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 100 && $total_miles >= 90){
 			if($ninty === true){	
-				echo '</div></div><div class="ninty range"> <hr><h3 class="hike_levels">90 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="ninty range"> <hr><div class="hikers"><h3 class="hike_levels">90 Milers</h3>';
 				$ninty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 90 && $total_miles >= 80){
 			if($eighty === true){	
-				echo '</div></div><div class="eighty range"> <hr><h3 class="hike_levels">80 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="eighty range"> <hr><div class="hikers"><h3 class="hike_levels">80 Milers</h3>';
 				$eighty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 80 && $total_miles >= 70){
 			if($seventy === true){	
-				echo '</div></div><div class="seventy range"> <hr><h3 class="hike_levels">70 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="seventy range"> <hr><div class="hikers"><h3 class="hike_levels">70 Milers</h3>';
 				$seventy = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 70 && $total_miles >= 60){
 			if($sixty === true){	
-				echo '</div></div><div class="sixty range"> <hr><h3 class="hike_levels">60 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="sixty range"> <hr><div class="hikers"><h3 class="hike_levels">60 Milers</h3>';
 				$sixty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 60 && $total_miles >= 50){
 			if($fifty === true){	
-				echo '</div></div><div class="fifty range"> <hr><h3 class="hike_levels">50 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="fifty range"> <hr><div class="hikers"><h3 class="hike_levels">50 Milers</h3>';
 				$fifty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 50 && $total_miles >= 40){
 			if($fourty === true){	
-				echo '</div></div><div class="fourty range"> <hr><h3 class="hike_levels">40 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="fourty range"> <hr><div class="hikers"><h3 class="hike_levels">40 Milers</h3>';
 				$fourty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 40 && $total_miles >= 30){
 			if($thirty === true){	
-				echo '</div></div><div class="thirty range"> <hr><h3 class="hike_levels">30 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="thirty range"> <hr><div class="hikers"><h3 class="hike_levels">30 Milers</h3>';
 				$thirty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 30 && $total_miles >= 20){
 			if($twenty === true){	
-				echo '</div></div><div class="twenty range"> <hr><h3 class="hike_levels">20 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="twenty range"> <hr><div class="hikers"><h3 class="hike_levels">20 Milers</h3>';
 				$twenty = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 20 && $total_miles >= 10){
 			if($teens === true){	
-				echo '</div></div><div class="teens range"> <hr><h3 class="hike_levels">10 Milers</h3><div class="hikers">';
+				echo '</div></div><div class="teens range"> <hr><div class="hikers"><h3 class="hike_levels">10 Milers</h3>';
 				$teens = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
 		}else if($total_miles < 10 && $total_miles >= 0){
 			if($ones === true){	
-				echo '</div></div><div class="ones range"> <hr><h3 class="hike_levels">New Hikers</h3><div class="hikers">';
+				echo '</div></div><div class="ones range"> <hr><div class="hikers"><h3 class="hike_levels">New Hikers</h3>';
 				$ones = false;
 			}
 			buildScout($scout_id, $first_name, $last_name, $den, $total_miles);
@@ -384,18 +459,10 @@ $('.jsCopyShow').bind('click',() => {
 /* When the user clicks on the scout's name in the modal. The modal will be closed
 *  and the page will jump to the scout's name.
 */
-$('.hikerScout a').bind('click', () => {
-	$('#hikehideModalModal').hide();
-});
+function closeModal(){
+	$('#hikeModal').hide();
+};
 
-// $('button, .hiker_stats a').bind('click',(e)=>{
-// 	const scoutId = e.target.id;
-// 	if($('#hikes' + scoutId).is(":visible")){
-// 		$('#hikes' + scoutId).hide();
-// 	}else{
-// 		$('#hikes' + scoutId).show();
-// 	}
-// });
 
 /*
 * The getData function will call a defined page and inject that page in the 
@@ -409,6 +476,10 @@ $('.hikerScout a').bind('click', () => {
 * @param (string) the name of the param to be used.
 *
 */
+
+function closeHikersDetail(){
+	$('.hikers_details').fadeOut(200);
+}
 
 function getData(dataId,hideTarget,dataTarget,page,param) {
 
@@ -425,8 +496,7 @@ function getData(dataId,hideTarget,dataTarget,page,param) {
         }
         xmlhttp.onreadystatechange = function() {
             if (this.readyState === 4 && this.status === 200) {
-                $(dataTarget).html(this.responseText);
-                $(hideTarget).show();
+                $(dataTarget).fadeIn(200).html(this.responseText);
             }
         };
         let p = "";
@@ -437,7 +507,13 @@ function getData(dataId,hideTarget,dataTarget,page,param) {
         xmlhttp.send();
     }
 }
+function jumpToScout(){
+	var scoutId = $('#scout_search').val();
+	console.log(scoutId);
+	$(document).scrollTop( $('#' + scoutId).offset().top - 20 );
+	$('#' + scoutId).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200).fadeOut(200).fadeIn(200);
+}
 </script>
 <?php
-require("footer.php");
+	require("footer.php");
 ?>

@@ -28,6 +28,7 @@ $sql = "SELECT tbl_HIKE.HIKE_ID, tbl_HIKE.HIKE, tbl_HIKE_TYPE.HIKE_TYPE, tbl_HIK
     ORDER BY tbl_HIKE.HIKE_DATE ASC;";
 
 $result = mysql_query($sql);
+echo '<span onclick="closeHikersDetail()" class="close_view" >X</span>';
 echo '<div class="detail_title jsHike">Hikes</div>';
 $total_miles = 0;
 while($row = mysql_fetch_array($result))
