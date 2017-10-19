@@ -42,7 +42,7 @@ if (!$result){
 							<p class="font_larger">
 								' . $event_desc . '
 							</p>
-							<a class="font_larger" href="/events/events_home.php">Register Here</a>
+							<a class="font_larger" href="/events/events_home.php">Learn More</a>
 						</div>
 					</div>
 				</div>';

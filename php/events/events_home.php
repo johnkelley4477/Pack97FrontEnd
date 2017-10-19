@@ -69,5 +69,5 @@ include("scoutsHeader.php");
 ?>
 
 <?php
-include("scoutsFooter.php");
+include("../footer.php");
 ?>

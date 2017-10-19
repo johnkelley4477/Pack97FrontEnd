@@ -96,6 +96,7 @@ table,tbody,tr,td{
 }
 body{
 	margin:0px;
+	font-family: sans-serif;
 }
 header{
 	background:#002266;
