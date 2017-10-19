@@ -30,6 +30,18 @@
 					<li class="m10 font15">
 						<a href="http://www.cdccos.info/" target="_blank">Charlotte Diocese Catholic Committee on Scouting</a>
 					</li>
+					<?php 
+						$urlPath = $_SERVER['REQUEST_URI']; 
+						$urlArray = explode("/", $urlPath);
+						if(strcmp($urlArray[1],"hike") == 0){
+						 	echo "<li class='m10 font15'><a href='http://www.cubscoutpack97.org/hike/admin_home.php'>Admin</a></li>";
+						}else if(strcmp($urlArray[1],"events") == 0){
+							echo "<li class='m10 font15'><a href='http://www.cubscoutpack97.org/events/admin_home.php'>Admin</a></li>";
+						}else{
+							echo strcmp($urlArray[1],"events");
+							echo $urlArray[1];
+						}
+					?>		
 				</ul>					
 			</div>
 		</div>
