@@ -188,7 +188,7 @@ p.item84{
     font-family: sans-serif;
 }
 
-i.item84{
+.item84{
 	position: absolute;
     top: 60px;
 	font-size: 30px;
@@ -276,7 +276,7 @@ p.font_larger {
 		height:100px;
 
 	}
-    i.item84{
+    .item84{
 		top: 35px;
     }
 	.main_menu{
@@ -293,7 +293,7 @@ p.font_larger {
 	.logo{
 		display:none;
 	}
-	i.item84{
+	.item84{
 		display: block;
 	}
 	p.item84{
