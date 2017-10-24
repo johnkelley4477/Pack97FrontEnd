@@ -192,7 +192,16 @@ p.item84{
 	display:none;
     font-family: sans-serif;
 }
-
+.btn {
+    text-decoration: none;
+    background: #002266;
+    color: #dd0;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: sans-serif;
+}
 i.item84{
 	position: absolute;
     top: 60px;
@@ -210,6 +219,10 @@ i.item84{
     text-align:center;
 	margin:0px 0px 0px 3px;
 }
+.horCenter{
+	margin-left: auto;
+	margin-right: auto;
+}
 .grid100{
 	width:100%;
 }
@@ -219,11 +232,17 @@ i.item84{
 .m10{
 	margin:10px;
 }
+.m20{
+	margin:20px;
+}
 .floatRight{
 	float:right;
 }
 .floatLeft{
 	float:left;
+}
+.clearBoth{
+	clear:both;
 }
 .font15{
 	font-size:15px;
