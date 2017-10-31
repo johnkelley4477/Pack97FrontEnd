@@ -2,9 +2,11 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="/css/modernize.css">
  	<div class="imgHeader">
- 		<i class="item84 fa fa-bars">
- 			<span class="icon_menu">menu</span>
- 		</i>
+	 	<div class="item84">
+	 		<i class="fa fa-bars">
+	 			<span class="icon_menu">menu</span>
+	 		</i>
+	 	</div>
  		<p class="item84">Menu</p>
  		<img src="/images/patches.png" class="logo">
  		<div class="text_container">
