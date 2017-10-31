@@ -4,19 +4,19 @@
 
 
 // When the user clicks on <span> (x), close the modal
-$(".close").bind('click',() => {
+$(".close").on('click',() => {
     $('#hikeModal').hide();
 });
 
 //When the user clicks on the 'less...' span the copy will be truncated
-$('.jsCopyHide').bind('click',() => {
+$('.jsCopyHide').on('click',() => {
 	$('.jsCopy').hide()
 	$('.jsCopyHide').hide();
 	$('.jsCopyShow').show();
 });
 
 //When the user clicks on the 'more...' span the copy will be displayed
-$('.jsCopyShow').bind('click',() => {
+$('.jsCopyShow').on('click',() => {
 	$('.jsCopy').show()
 	$('.jsCopyHide').show();
 	$('.jsCopyShow').hide();
