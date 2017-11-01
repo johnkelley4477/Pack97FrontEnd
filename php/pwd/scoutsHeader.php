@@ -14,6 +14,7 @@ $redirect = $_SERVER['PHP_SELF'] . "?" . $_SERVER['QUERY_STRING'];
 <head profile="http://www.w3.org/2005/10/profile">
   <title>Pack 97 - PineWood Derby</title>
   <META NAME="keywords" CONTENT="pack 97 activities, events, fun, race, Pinewood, Derby">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <!-- <link REL="STYLESHEET" HREF="style.css" TYPE="text/css"> -->
   <link rel="icon" type="image/gif" href="../images/favicon.ico">
   <style type="text/css">

@@ -194,6 +194,7 @@ p.item84{
 }
 .btn {
     text-decoration: none;
+    text-align: center;
     background: #002266;
     color: #dd0;
     padding: 10px;
@@ -201,8 +202,10 @@ p.item84{
     font-size: 16px;
     cursor: pointer;
     font-family: sans-serif;
+    display: block;
+    margin-bottom: 15px;
 }
-i.item84{
+.item84{
 	position: absolute;
     top: 60px;
 	font-size: 30px;
@@ -297,10 +300,10 @@ p.font_larger {
 	    font-size: 15px;
 	}
 	.imgHeader, .logo, header{
-		height:100px;
+		height:110px;
 
 	}
-    i.item84{
+    .item84{
 		top: 35px;
     }
 	.main_menu{
@@ -328,7 +331,7 @@ p.font_larger {
 	.logo{
 		display:none;
 	}
-	i.item84{
+	.item84{
 		display: block;
 	}
 	p.item84{
