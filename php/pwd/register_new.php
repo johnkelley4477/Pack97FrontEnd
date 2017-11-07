@@ -272,6 +272,9 @@ xmlhttp.send(data);
 	.center_container{
 		width:425px;
 	}
+	input:not([type]), input[type="checkbox"] {
+	    width: auto;
+	}
 </style>
 <h1>Pinewood Derby Registration</h1>
 <div class="horCenter center_container">
@@ -302,8 +305,8 @@ xmlhttp.send(data);
 	<label>Car Number:</label>
 	<select name="car_number" id="car_number">
 	</select>
-	<input type="checkbox" name="rules_agree" id="rules_agree" onclick="AgreeToRules()" />&nbsp;I have read and agree to the <a href="/PDF/PWD_Rules_and_Procedures.pdf" target="_blank">Pinewood Derby rules</a>.
-	<input type="button" name="btnRegister" id="btnRegister" value="Register" onclick="btnRegister_OnClick()" />
+	<input type="checkbox" name="rules_agree" id="rules_agree" onclick="AgreeToRules()" />I have read and agree to the <a href="/PDF/PWD_Rules_and_Procedures.pdf" target="_blank">Pinewood Derby rules</a>.
+	<input type="button" name="btnRegister" id="btnRegister" value="Register" class="btn" onclick="btnRegister_OnClick()" />
 </div>
 <script type="text/javascript">
 document.getElementById("btnRegister").disabled = true;
