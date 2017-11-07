@@ -1,0 +1,37 @@
+Camping Supplies
+	Family/Group
+		Shelter
+			Tent
+			Tarp
+			Lantern
+			Toilet Paper
+		Food
+			Firewood
+			Fire Started
+			Matches
+			Stove
+			Propane Canister
+			Pot
+			Pan
+			Spoon
+			Plates
+			Garbage bags
+			Spatula
+		Water
+			5 gal Water jug
+	Individual
+		Shelter
+			Sleeping Bag
+			Cot
+			Bed roll
+		Food
+			Snacks
+		Water
+			Sport Bottle
+		Tools
+			Knife
+			Whistle
+			Hat
+			FirstAid kit
+			Poncho
+			Flashlight

@@ -192,7 +192,23 @@ p.item84{
 	display:none;
     font-family: sans-serif;
 }
-
+.btn {
+    text-decoration: none;
+    text-align: center;
+    background: #002266;
+    color: #dd0;
+    padding: 10px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    font-family: sans-serif;
+    display: block;
+    margin-bottom: 15px;
+}
+.btn:disabled {
+    background-color: #444;
+    color: #fff;
+}
 .item84{
 	position: absolute;
     top: 60px;
@@ -210,6 +226,10 @@ p.item84{
     text-align:center;
 	margin:0px 0px 0px 3px;
 }
+.horCenter{
+	margin-left: auto;
+	margin-right: auto;
+}
 .grid100{
 	width:100%;
 }
@@ -219,11 +239,17 @@ p.item84{
 .m10{
 	margin:10px;
 }
+.m20{
+	margin:20px;
+}
 .floatRight{
 	float:right;
 }
 .floatLeft{
 	float:left;
+}
+.clearBoth{
+	clear:both;
 }
 .font15{
 	font-size:15px;
@@ -262,6 +288,16 @@ p.font_larger {
 	background-color: rgba(0,34,104,0.5);
 	box-shadow: 0px 0px 20px 10px rgba(0,34,104,0.5);
 }
+select {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    -webkit-border-radius: 0px;
+    height: 27px;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='24' height='24' viewBox='0 0 24 24'><path fill='#444' d='M7.406 7.828l4.594 4.594 4.594-4.594 1.406 1.406-6 6-6-6z'></path></svg>");
+    background-position: 100% 50%;
+    background-repeat: no-repeat;
+}
 @media only screen and (max-width: 945px) {
  	.footer_grid33{
 		width:100%;
@@ -278,7 +314,7 @@ p.font_larger {
 	    font-size: 15px;
 	}
 	.imgHeader, .logo, header{
-		height:100px;
+		height:110px;
 
 	}
     .item84{
